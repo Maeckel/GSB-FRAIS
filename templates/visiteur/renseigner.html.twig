@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<script>
+function openForm() {
+  document.getElementById("popup1").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("popup1").style.display = "none";
+}
+</script>
+
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    table{
+  border-collapse: collapse;
+}
+tr, td{
+  border: 1px solid black;
+  padding: 10px;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+</style>
+
+	<head>
+		<meta charset="utf-8">
+		<title>GSB - Frais</title>
+        <h1>Visiteur - Renseigner fiche frais</h1>
+	</head>
+	
+	<body>
+		<a href="{{ path('app_consulter') }}">Consulter fiche frais</a>
+		<a href="{{ path('app_espace_visiteur') }}">Acceuil</a>
+		<a class="button" onclick="openForm()" href="#popup2">Déconnexion</a>
+		<div id="popup2" class="overlay">
+					  <div class="popup">
+					  <h2>Confirmation</h2>
+					  <a class="close" href="#">&times;</a>
+					  <div class="content">
+					  Etes-vous certains de vouloir fermer la session ?
+					  </div>
+    				  <br/>
+    				  <a class="button" href="{{ path('app_visiteur_deconnexion') }}">Oui</a>
+				</div>
+			</div>
+		<br/>
+		<br/>
+		<a href="{{ path('app_frais_hors_forfait') }}">+ Nouveau frais hors forfait +</a>
+	</body>
+	<br/>
+	<form action="{{ path('app_renseigner') }}" method="POST">
+	<br/>
+	<h2>Fiche frais<h2/>
+	<table>
+	<thead>
+		<th>Mois</th>
+			<th>Justificatifs</th>
+			<th>Montant validé</th>
+			<th>Date de modifcation</th>
+		</thead>
+		<tr>
+			<td>{{ fiche.id }}</td>
+			<td>{{ fiche.nbJustificatifs }}</td>
+			<td>{{ fiche.montantValide }}</td>
+			<td>{{ fiche.dateModif|date('d-m-Y') }}</td>
+		</tr>
+		</table>
+		<br/>
+		<h2>Ligne frais hors forfait<h2/>
+		<table>
+		<thead>
+			<th>Date</th>
+			<th>Montant</th>
+			<th>Libelle</th>
+		</thead>
+		{% for FHF in fiche.ligneFraisHorsForfaits %}
+			{% if FHF != null %}
+			{% if FHF.Visiteur.id == app.session.get("id") %}
+				<tr>
+					<td>{{ FHF.date|date('d-m-Y') }}</td>
+					<td>{{ FHF.montant }}</td>
+					<td>{{ FHF.libelle }}</td>
+					<td>
+					<div class="box">
+					<a class="button" onclick="openForm()" href="#popup1">Supprimer</a>
+					</div>
+
+					<div id="popup1" class="overlay">
+					<div class="popup">
+					<h2>Confirmation</h2>
+					<a class="close" href="#">&times;</a>
+					<div class="content">
+					Etes-vous certains de vouloir poursuivre l'action suivante ?
+					</div>
+    				<br/>
+    				<button type="submit" name="Id" value="{{ FHF.id }}">Oui</button>
+					</div>
+					</div>
+					</td>
+				</tr>
+			{% endif %}
+			{% endif %}
+		{% endfor %}
+		</form>
+		</table>
+		<br/>
+		<h2>Ligne frais forfait<h2/>
+		<table>
+		<thead>
+			<th>Type</th>
+			<th>Libelle</th>
+			<th>Quantite</th>
+			<th>Montant</th>
+		</thead>
+		{% for FF in fiche.ligneFraisForfaits %}
+			{% if FF != null %}
+			{% if FF.Visiteur.id == app.session.get("id") %}
+				<tr>
+					<td>{{ FF.Fraisforfait.id }}</td>
+					<td>{{ FF.Fraisforfait.libelle  }}</td>
+					<td>{{ FF.quantite }}</td>
+					<td>{{ FF.Fraisforfait.montant }}</td>
+					<td> <a href="{{ path('app_frais_forfait', {'id': FF.Fraisforfait.id}) }}">Editer</a> </td>
+				</tr>
+			{% endif %}
+			{% endif %}
+		{% endfor %}
+		</table>
+	
+</html>

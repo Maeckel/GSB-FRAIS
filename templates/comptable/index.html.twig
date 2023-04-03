@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+	<head>
+		<meta charset="utf-8">
+		<title>GSB - Frais</title>
+        <h1>Comptable</h1>
+	</head>
+	<body>
+		
+		<a href="{{ path( 'app_acceuil' ) }}">Accueil</a>
+		<br/>
+		
+		<?php if( isset( $erreur ) ){ ?>
+			<b><?= $erreur ?></b>
+		<?php } ?>
+		
+		<form action="{{ path('app_comptable_connecter') }}" method="POST">
+			<p>Identifiant :</p>
+			{% if erreur is defined and erreur != null %}
+				<h5> {{ erreur }} </h5>
+			{% endif %}
+			<input type="text" name="login" /><br/>
+			Mot de passe :<br/>
+			<input type="password" name="mdp" /><br/>
+			<br/>
+			<input type="submit" value="Valider" />
+		</form>
+		
+	</body>
+	
+</html>

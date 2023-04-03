@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<script>
+function openForm() {
+  document.getElementById("popup1").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("popup1").style.display = "none";
+}
+</script>
+
+<style>
+	.example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+	.example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+	table{
+  border-collapse: collapse;
+}
+tr, td{
+  border: 1px solid black;
+  padding: 10px;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+</style>
+
+    <head>
+   	 <meta charset="utf-8">
+   	 <title>GSB - Frais</title>
+    	<h1>Comptable - Valider fiche frais</h1>
+   	 <a href="{{ path('app_espace_comptable') }}">Acceuil</a>
+   	 <a href="{{ path('app_suivre') }}">Suivre fiche frais</a>
+   	 <a class="button" onclick="openForm()" href="#popup1">Déconnexion</a>
+   	 <div id="popup1" class="overlay">
+   				   <div class="popup">
+   				   <h2>Confirmation</h2>
+   				   <a class="close" href="#">&times;</a>
+   				   <div class="content">
+   				   Etes-vous certains de vouloir fermer la session ?
+   				   </div>
+   				   <br/>
+   				   <a class="button" href="{{ path('app_comptable_deconnexion') }}">Oui</a>
+   			 </div>
+   		 </div>
+    </head>
+
+    <body>
+   	 <form action="{{ path('app_valider') }}" method="POST">
+	{% if erreur is defined and erreur != null %}
+   			 <h5> {{ erreur }} </h5>
+   		 {% endif %}
+   	 <br/>
+   	 <label>Veuillez choisir un visiteur :</label>
+   	 <br/>
+   	 <select name="Visiteur" id="visiteur">
+   	 {% for visiteur in visiteurs %}
+   		 <option value="{{ visiteur.id }}">{{ visiteur.nom ~ " " ~ visiteur.prenom }}</option>
+   	 {% endfor %}
+   	 </select>
+   	 <br/>
+	<br/>
+   	 <label>Veuillez choisir une année :</label>
+   	 <br/>
+	<select name="Annee" id="annee">
+	{% for i in 0..4 %}
+   		 <option value="{{ annees[i] }}">{{ annees[i] }}</option>
+   	 {% endfor %}
+   	 </select>
+	<br/>
+	<br/>
+   	 <label>Veuillez choisir un mois :</label>
+   	 <br/>
+	<select name="Mois" id="mois">
+	<option value="01">Janvier</option>
+	<option value="02">Février</option>
+	<option value="03">Mars</option>
+	<option value="04">Avril</option>
+	<option value="05">Maï</option>
+	<option value="06">Juin</option>
+	<option value="07">Juillet</option>
+	<option value="08">Août</option>
+	<option value="09">Septembre</option>
+	<option value="10">Octobre</option>
+	<option value="11">Novembre</option>
+	<option value="12">Décembre</option>
+	</select>
+	<br/>
+	<br/>
+	{% if fiche != null %}
+  	<h2>Fiche frais<h2/>
+    <table>
+    <thead>
+   	 <th>Mois</th>
+   		 <th>Justificatifs</th>
+   		 <th>Montant validé</th>
+   		 <th>Date de modification</th>
+   	 </thead>
+   	 <tr>
+   		 <td>{{ fiche.id }}</td>
+   		 <td>{{ fiche.nbJustificatifs }}</td>
+   		 <td>{{ fiche.montantValide }}</td>
+   		 <td>{{ fiche.dateModif|date('d-m-Y') }}</td>
+   	 </tr>
+   	 </table>
+   	 <br/>
+   	 <h2>Ligne frais hors forfait<h2/>
+   	 <table>
+   	 <thead>
+   		 <th>Date</th>
+   		 <th>Montant</th>
+   		 <th>Libelle</th>
+   	 </thead>
+   	 {% for FHF in fiche.ligneFraisHorsForfaits %}
+   		 {% if FHF != null %}
+   			 <tr>
+   				 <td>{{ FHF.date|date('d-m-Y') }}</td>
+   				 <td>{{ FHF.montant }}</td>
+   				 <td>{{ FHF.libelle }}</td>
+   				 <td>
+   				 <div class="box">
+					<a class="button" onclick="openForm()" href="#popup2">Refuser</a>
+					</div>
+
+					<div id="popup2" class="overlay">
+					<div class="popup">
+					<h2>Confirmation</h2>
+					<a class="close" href="#">&times;</a>
+					<div class="content">
+					Etes-vous certains de vouloir poursuivre l'action suivante ?
+					</div>
+    				<br/>
+    				<button type="submit" name="Refuser" value="{{ FHF.id }}">Oui</button>
+					</div>
+					</div>
+   				 </td>
+   				 {% if 'REFUSE' not in FHF.libelle %}
+   				 <td> <a href="{{ path('app_reporter', { "Visiteur": FHF.Visiteur.id , "FicheFrais": FHF.Fichefrais.id , "FraisHorsForfait": FHF.id }) }}">Reporter</a> </td>
+   			     {% endif %}
+   			 </tr>
+   		 {% endif %}
+   	 {% endfor %}
+   	 </form>
+   	 </table>
+   	 <br/>
+   	 <h2>Ligne frais forfait<h2/>
+   	 <table>
+   	 <thead>
+   		 <th>Type</th>
+   		 <th>Libelle</th>
+   		 <th>Quantite</th>
+   		 <th>Montant</th>
+   	 </thead>
+   	 {% for FF in fiche.ligneFraisForfaits %}
+   		 {% if FF != null %}
+   			 <tr>
+   				 <td>{{ FF.Fraisforfait.id }}</td>
+   				 <td>{{ FF.Fraisforfait.libelle  }}</td>
+   				 <td>{{ FF.quantite }}</td>
+   				 <td>{{ FF.Fraisforfait.montant }}</td>
+   				 <td> <a href="{{ path('app_actualiser', { "Visiteur": FF.Visiteur.id , "FicheFrais": FF.Fichefrais.id , "FraisForfait": FF.Fraisforfait.id }) }}">Actualiser</a> </td>
+   			 </tr>
+   		 {% endif %}
+   	 {% endfor %}
+   	 </table>
+	{% endif %}
+	<br/>
+   	 <input type="submit" value="Envoyer"></input> {% if fiche != null %} <button><a href="{{ path('app_validée', { "Visiteur": fiche.Visiteur.id , "FicheFrais": fiche.id }) }}">Valider fiche frais</a></button> {% endif %}
+    </body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<script>
+function openForm() {
+  document.getElementById("popup1").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("popup1").style.display = "none";
+}
+</script>
+
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    table{
+  border-collapse: collapse;
+}
+tr, td{
+  border: 1px solid black;
+  padding: 10px;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+</style>
+
+<head>
+	<meta charset="utf-8">
+	<title>GSB - Frais</title>
+    <h1>Comptable - Valider fiche frais</h1>
+    <h2>Comptable - Actualiser frais au forfait</h2>
+</head>
+<body>
+	<a href="{{ path('app_valider') }}">Valider fiche frais</a>
+    <a href="{{ path('app_suivre') }}">suivre fiche frais</a>
+	<a href="{{ path('app_espace_comptable') }}">Acceuil</a>
+	<a class="button" onclick="openForm()" href="#popup1">Déconnexion</a>
+		<div id="popup1" class="overlay">
+					  <div class="popup">
+					  <h2>Confirmation</h2>
+					  <a class="close" href="#">&times;</a>
+					  <div class="content">
+					  Etes-vous certains de vouloir fermer la session ?
+					  </div>
+    				  <br/>
+    				  <a class="button" href="{{ path('app_comptable_deconnexion') }}">Oui</a>
+				</div>
+			</div>
+
+    <form action="{{ path('app_actualiser', { "Visiteur": frais.Visiteur.id , "FicheFrais": frais.Fichefrais.id , "FraisForfait": frais.Fraisforfait.id }) }}" method="POST">
+    <br/>
+    {% if erreur is defined and erreur != null %}
+		    <h5> {{ erreur }} </h5>
+	{% endif %}
+    <br/>
+    <label>Type de frais forfait :</label>
+    <br/>
+    <input type="text" name="Id" value="{{ frais.Fraisforfait.id }}" readonly/>
+    <br/>
+    <br/>
+    <label>Libelle du frais forfait:</label>
+    <br/>
+    <select name="Libelle" id="libelle" readonly>
+    <option value="{{ frais.Fraisforfait.libelle }}">{{ frais.Fraisforfait.libelle }}</option>
+	</select>
+    <br/>
+    <br/>
+    <label>Montant du frais forfait :</label>
+    <br/>
+    <input type="number" name="Montant" value="{{ frais.Fraisforfait.montant }}" readonly/>
+    <br/>
+    <br/>
+    <label>Quantite du frais forfait :</label>
+    <br/>
+    <input type="number" name="Quantite" step="1" value="{{ frais.quantite }}" />
+    <br/>
+    <br/>
+    <br/>
+    <input type="submit" value="Valider" />
+    </form>
+</body>
+</html>

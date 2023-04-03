@@ -1,0 +1,86 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+app_acceuil:
+    path: /Acceuil
+    controller: App\Controller\AcceuilController::index
+
+app_visiteur:
+    path: /Visiteur
+    controller: App\Controller\VisiteurController::index
+
+app_visiteur_connecter:
+    path: /Visiteur/Connecter
+    controller: App\Controller\VisiteurController::Authentification
+
+app_consulter:
+    path: /Visiteur/Consulter
+    controller: App\Controller\VisiteurController::Consulter
+
+app_renseigner:
+    path: /Visiteur/Renseigner
+    controller: App\Controller\VisiteurController::Renseigner
+
+app_frais_forfait:
+    path: /Visiteur/Renseigner/Editer/{id}
+    controller: App\Controller\VisiteurController::Editer
+
+app_initialiser:
+    path: /Visiteur/Initialiser
+    controller: App\Controller\VisiteurController::Initialiser
+
+app_espace_visiteur:
+    path: /Visiteur/Espace
+    controller: App\Controller\VisiteurController::Espace
+
+app_frais_hors_forfait:
+    path: /Visiteur/Renseigner/Ajouter
+    controller: App\Controller\VisiteurController::Ajouter
+
+
+app_visiteur_deconnexion:
+    path: /visiteur/deconnecter
+    controller: App\Controller\VisiteurController::Deconnecter
+
+app_comptable:
+    path: /Comptable
+    controller: App\Controller\ComptableController::index
+
+app_comptable_connecter:
+    path: /Comptable/Connecter
+    controller: App\Controller\ComptableController::Authentification
+
+app_valider:
+    path: /Comptable/Valider
+    controller: App\Controller\ComptableController::Valider
+
+app_actualiser:
+    path: /Comptable/Valider/Actualiser/{Visiteur}/{FicheFrais}/{FraisForfait}
+    controller: App\Controller\ComptableController::Actualiser
+    requirements:
+        FicheFrais: '\d{2}/\d{4}'
+
+app_reporter:
+    path: /Comptable/Valider/Reporter/{Visiteur}/{FicheFrais}/{FraisHorsForfait}
+    controller: App\Controller\ComptableController::Reporter
+    requirements:
+        FicheFrais: '\d{2}/\d{4}'
+
+app_validée:
+    path: /Comptable/Valider/Validéé/{Visiteur}/{FicheFrais}
+    controller: App\Controller\ComptableController::Validée
+    requirements:
+        FicheFrais: '\d{2}/\d{4}'
+
+app_suivre:
+    path: /Comptable/Suivre
+    controller: App\Controller\ComptableController::Suivre
+
+app_espace_comptable:
+    path: /Comptable/Espace
+    controller: App\Controller\ComptableController::Espace
+
+app_comptable_deconnexion:
+    path: /Comptable/deconnecter
+    controller: App\Controller\ComptableController::Deconnecter
