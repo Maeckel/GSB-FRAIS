@@ -179,7 +179,7 @@ tr, td{
             // line 106
             if (array_key_exists("fiche", $context)) {
                 // line 107
-                echo "\t\t\t\t<h2>Fiche frais<h2/>
+                echo "\t\t\t\t<h2>Fiche frais</h2>
 \t\t\t\t<table>
 \t\t\t\t<thead>
 \t\t\t\t\t<th>Mois</th>
@@ -207,7 +207,7 @@ tr, td{
 \t\t\t\t</tr>
 \t\t\t\t</table>
 \t\t\t\t<br/>
-\t\t\t\t<h2>Ligne frais hors forfait<h2/>
+\t\t\t\t<h2>Ligne frais hors forfait</h2>
 \t\t\t\t<table>
 \t\t\t\t<thead>
 \t\t\t\t\t<th>Date</th>
@@ -248,7 +248,7 @@ tr, td{
                 // line 139
                 echo "\t\t\t\t</table>
 \t\t\t\t<br/>
-\t\t\t\t<h2>Ligne frais forfait<h2/>
+\t\t\t\t<h2>Ligne frais forfait</h2>
 \t\t\t\t<table>
 \t\t\t\t<thead>
 \t\t\t\t\t<th>Type</th>
@@ -435,7 +435,7 @@ tr, td{
 \t\t\t<br/>
 \t\t\t<br/>
 \t\t\t{% if fiche is defined %}
-\t\t\t\t<h2>Fiche frais<h2/>
+\t\t\t\t<h2>Fiche frais</h2>
 \t\t\t\t<table>
 \t\t\t\t<thead>
 \t\t\t\t\t<th>Mois</th>
@@ -451,7 +451,7 @@ tr, td{
 \t\t\t\t</tr>
 \t\t\t\t</table>
 \t\t\t\t<br/>
-\t\t\t\t<h2>Ligne frais hors forfait<h2/>
+\t\t\t\t<h2>Ligne frais hors forfait</h2>
 \t\t\t\t<table>
 \t\t\t\t<thead>
 \t\t\t\t\t<th>Date</th>
@@ -469,7 +469,7 @@ tr, td{
 \t\t\t\t{% endfor %}
 \t\t\t\t</table>
 \t\t\t\t<br/>
-\t\t\t\t<h2>Ligne frais forfait<h2/>
+\t\t\t\t<h2>Ligne frais forfait</h2>
 \t\t\t\t<table>
 \t\t\t\t<thead>
 \t\t\t\t\t<th>Type</th>

@@ -125,7 +125,7 @@ tr, td{
 \t\t<div id=\"popup1\" class=\"overlay\">
 \t\t\t\t\t  <div class=\"popup\">
 \t\t\t\t\t  <h2>Confirmation</h2>
-\t\t\t\t\t  <a class=\"close\" href=\"#\">&times;</a>
+\t\t\t\t\t  <a class=\"close\" href=\"\">&times;</a>
 \t\t\t\t\t  <div class=\"content\">
 \t\t\t\t\t  Etes-vous certains de vouloir fermer la session ?
 \t\t\t\t\t  </div>
@@ -252,7 +252,7 @@ tr, td{
 \t\t<div id=\"popup1\" class=\"overlay\">
 \t\t\t\t\t  <div class=\"popup\">
 \t\t\t\t\t  <h2>Confirmation</h2>
-\t\t\t\t\t  <a class=\"close\" href=\"#\">&times;</a>
+\t\t\t\t\t  <a class=\"close\" href=\"\">&times;</a>
 \t\t\t\t\t  <div class=\"content\">
 \t\t\t\t\t  Etes-vous certains de vouloir fermer la session ?
 \t\t\t\t\t  </div>

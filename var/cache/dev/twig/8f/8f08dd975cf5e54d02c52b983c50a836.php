@@ -189,7 +189,7 @@ tr, td{
         // line 109
         if (((isset($context["fiche"]) || array_key_exists("fiche", $context) ? $context["fiche"] : (function () { throw new RuntimeError('Variable "fiche" does not exist.', 109, $this->source); })()) != null)) {
             // line 110
-            echo "<h2>Ligne frais forfait<h2/>
+            echo "<h2>Ligne frais forfait</h2>
 \t\t<table>
 \t\t<thead>
 \t\t\t<th>Type</th>
@@ -369,7 +369,7 @@ tr, td{
 {% endif %}
 </form>
 {% if fiche != null %}
-<h2>Ligne frais forfait<h2/>
+<h2>Ligne frais forfait</h2>
 \t\t<table>
 \t\t<thead>
 \t\t\t<th>Type</th>

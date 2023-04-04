@@ -71,9 +71,7 @@ tr, td{
 		<meta charset="utf-8">
 		<title>GSB - Frais</title>
         <h1>Comptable - Suivre fiche frais</h1>
-	</head>
-	
-	<body>
+
 		<a href="{{ path('app_espace_comptable') }}">Acceuil</a>
 		<a href="{{ path('app_valider') }}">Valider fiche frais</a>
 		<a class="button" onclick="openForm()" href="#popup1">Déconnexion</a>
@@ -88,6 +86,143 @@ tr, td{
     				  <a class="button" href="{{ path('app_comptable_deconnexion') }}">Oui</a>
 					  </div>
 					</div>
+	</head>
+	<body>
+	<form action="{{ path('app_suivre') }}" method="POST">
+	</br>
+	</br>
+	{% if erreur is defined and erreur != null %}
+   			 <h5> {{ erreur }} </h5>
+   		 {% endif %}
+   	 <label>Veuillez choisir un visiteur :</label>
+   	 <br/>
+   	 <select name="Visiteur" id="visiteur">
+   	 {% for visiteur in visiteurs %}
+   		 <option value="{{ visiteur.id }}">{{ visiteur.nom ~ " " ~ visiteur.prenom }}</option>
+   	 {% endfor %}
+   	 </select>
+   	 <br/>
+	<br/>
+   	 <label>Veuillez choisir une année :</label>
+   	 <br/>
+	<select name="Annee" id="annee">
+	{% for i in 0..4 %}
+   		 <option value="{{ annees[i] }}">{{ annees[i] }}</option>
+   	 {% endfor %}
+   	 </select>
+	<br/>
+	<br/>
+   	 <label>Veuillez choisir un mois :</label>
+   	 <br/>
+	<select name="Mois" id="mois">
+	<option value="01">Janvier</option>
+	<option value="02">Février</option>
+	<option value="03">Mars</option>
+	<option value="04">Avril</option>
+	<option value="05">Maï</option>
+	<option value="06">Juin</option>
+	<option value="07">Juillet</option>
+	<option value="08">Août</option>
+	<option value="09">Septembre</option>
+	<option value="10">Octobre</option>
+	<option value="11">Novembre</option>
+	<option value="12">Décembre</option>
+	</select>
+	</br>
+	{% if fiche != null %}
+	</br>
+	<fieldset>
+    <legend>Choissiser un état parmi ceux proposer :</legend>
+    <div>
+      <input type="radio" id="VA" name="Etat" value="VA" checked>
+      <label for="huey">Mise en paiment</label>
+    </div>
+    <div>
+      <input type="radio" id="RB" name="Etat" value="RB" >
+      <label for="RB">Remboursée</label>
+    </div>
+    </fieldset>
+	</br>
+  	<h2>Fiche frais</h2>
+    <table>
+    <thead>
+   	     <th>Mois</th>
+   		 <th>Justificatifs</th>
+   		 <th>Montant validé</th>
+   		 <th>Date de modification</th>
+   	 </thead>
+   	 <tr>
+   		 <td>{{ fiche.id }}</td>
+   		 <td>{{ fiche.nbJustificatifs }}</td>
+   		 <td>{{ fiche.montantValide }}</td>
+   		 <td>{{ fiche.dateModif|date('d-m-Y') }}</td>
+   	 </tr>
+   	 <h4>Etat : {{ fiche.etat.libelle }}</h4>
+   	 </table>
+   	 <br/>
+   	 <h2>Ligne frais hors forfait</h2>
+   	 <table>
+   	 <thead>
+   		 <th>Date</th>
+   		 <th>Montant</th>
+   		 <th>Libelle</th>
+   	 </thead>
+   	 {% for FHF in fiche.ligneFraisHorsForfaits %}
+   		 {% if FHF != null %}
+   			 <tr>
+   				 <td>{{ FHF.date|date('d-m-Y') }}</td>
+   				 <td>{{ FHF.montant }}</td>
+   				 <td>{{ FHF.libelle }}</td>
+   			 </tr>
+   		 {% endif %}
+   	 {% endfor %}
+   	 </form>
+   	 </table>
+   	 <br/>
+   	 <h2>Ligne frais forfait</h2>
+   	 <table>
+   	 <thead>
+   		 <th>Type</th>
+   		 <th>Libelle</th>
+   		 <th>Quantite</th>
+   		 <th>Montant</th>
+   	 </thead>
+   	 {% for FF in fiche.ligneFraisForfaits %}
+   		 {% if FF != null %}
+   			 <tr>
+   				 <td>{{ FF.Fraisforfait.id }}</td>
+   				 <td>{{ FF.Fraisforfait.libelle  }}</td>
+   				 <td>{{ FF.quantite }}</td>
+   				 <td>{{ FF.Fraisforfait.montant }}</td>
+   			 </tr>
+   		 {% endif %}
+   	 {% endfor %}
+   	 </table>
+   	 {% endif %}
+	<br/>
+	<br/>
+	<input type="submit" value="Envoyer">
+	</br>
+	{% if fiche != null %}
+	</br>
+	<div class="box">
+					<button><a class="button" onclick="openForm()" href="#popup2">Suivre</a></button>
+					</div>
+
+					<div id="popup2" class="overlay">
+					<div class="popup">
+					<h2>Confirmation</h2>
+					<a class="close" href="#">&times;</a>
+					<div class="content">
+					Etes-vous certains de vouloir poursuivre l'action suivante ?
+					</div>
+    				<br/>
+    				<input type="submit" name="Suivre" value=Oui>
+					</div>
+					</div>
+					</td>
+			{% endif %}
+	</form>
 	</body>
 	
 </html>

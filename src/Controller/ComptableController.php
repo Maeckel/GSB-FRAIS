@@ -208,7 +208,8 @@ class ComptableController extends AbstractController
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-            ModeleGSB::Valider($Visiteur , $FicheFrais , $DateModif);
+            $Etat = "VA";
+            ModeleGSB::ModifierEtat($Visiteur , $FicheFrais , $DateModif , $Etat);
 
             $erreur = "Etat de la fiche de frais actualiser !";
 
@@ -220,10 +221,65 @@ class ComptableController extends AbstractController
     public function Suivre()
     {
         session_start();
-        
-        return $this->render('comptable/suivre.html.twig', [
-            'controller_name' => 'VisiteurController',
-        ]);
+
+        $Co = $this -> getDoctrine()
+                   -> getRepository('App\Entity\Visiteur') ;
+
+
+       $visiteurs = $Co -> findAll();
+
+
+       $date = date('Y');
+       $i = 0;
+       $erreur = null;
+       $fiche = null;
+       $Month = date('m/Y');
+       $annees = array($date);
+
+
+       while($i != 4){
+
+           $i =$i + 1;
+           $date = $date - 1 ;
+           array_push($annees , $date );
+
+       }
+
+       if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+          if(isset($_POST['Suivre'])) {
+
+             $Visiteur = $this->get('session')->get('visiteur');
+             $FicheFrais = $this->get('session')->get('fiche');
+             $DateModif = date('Y-m-d');
+             $Etat = $_POST['Etat'];
+
+             ModeleGSB::ModifierEtat( $Visiteur , $FicheFrais , $DateModif , $Etat );
+
+             return $this->render('comptable/suivre.html.twig', ['visiteurs' => $visiteurs, 'annees' => $annees, 'fiche' => $fiche, 'erreur' => $erreur]);
+          }
+
+           $Visiteur = $_POST[ "Visiteur" ] ;
+           $Annee = $_POST[ "Annee" ] ;
+           $Mois = $_POST[ "Mois" ] ;
+
+           $choix = $Mois.'/'.$Annee ;
+
+           $Co = $this -> getDoctrine()
+                       -> getRepository('App\Entity\FicheFrais') ;
+           $fiche = $Co -> findOneBy(array('id' => $choix , 'visiteur' => $Visiteur));
+
+           $this->get('session')->set('visiteur' , $fiche->getVisiteur()->getId()) ;
+		   $this->get('session')->set('fiche' , $fiche->getId()) ;
+
+           if($fiche == null or $fiche->getId() == $Month){
+
+
+               $fiche = null;
+               $erreur = "Pas de fiche frais pour ce visiteur ce mois";
+           }
+       }
+
+        return $this->render('comptable/suivre.html.twig', ['visiteurs' => $visiteurs, 'annees' => $annees, 'fiche' => $fiche, 'erreur' => $erreur]);
     }
 
     public function Espace()

@@ -95,11 +95,11 @@ class ModeleGSB {
 		$st->closeCursor() ;
 	}
 
-	public static function Valider( $Visiteur , $FicheFrais , $DateModif ){
+	public static function ModifierEtat( $Visiteur , $FicheFrais , $DateModif , $Etat ){
 		$bd = self::getConnexion() ;
-		$sql = "UPDATE fiche_frais SET etat_id = 'VA' , date_modif = :DateModif where id = :FicheFrais and visiteur_id = :Visiteur" ;
+		$sql = "UPDATE fiche_frais SET etat_id = :Etat , date_modif = :DateModif where id = :FicheFrais and visiteur_id = :Visiteur" ;
 		$st = $bd->prepare( $sql ) ;
-		$st->execute( array( ':FicheFrais' => $FicheFrais , ':Visiteur' => $Visiteur , 'DateModif' => $DateModif ) ) ;
+		$st->execute( array( ':FicheFrais' => $FicheFrais , ':Visiteur' => $Visiteur , 'DateModif' => $DateModif , ':Etat' => $Etat) ) ;
 		$st->closeCursor() ;
 	}
 

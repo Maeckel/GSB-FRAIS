@@ -149,7 +149,7 @@ tr, td{
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_renseigner");
         echo "\" method=\"POST\">
 \t<br/>
-\t<h2>Fiche frais<h2/>
+\t<h2>Fiche frais</h2>
 \t<table>
 \t<thead>
 \t\t<th>Mois</th>
@@ -177,7 +177,7 @@ tr, td{
 \t\t</tr>
 \t\t</table>
 \t\t<br/>
-\t\t<h2>Ligne frais hors forfait<h2/>
+\t\t<h2>Ligne frais hors forfait</h2>
 \t\t<table>
 \t\t<thead>
 \t\t\t<th>Date</th>
@@ -245,7 +245,7 @@ tr, td{
         echo "\t\t</form>
 \t\t</table>
 \t\t<br/>
-\t\t<h2>Ligne frais forfait<h2/>
+\t\t<h2>Ligne frais forfait</h2>
 \t\t<table>
 \t\t<thead>
 \t\t\t<th>Type</th>
@@ -422,7 +422,7 @@ tr, td{
 \t<br/>
 \t<form action=\"{{ path('app_renseigner') }}\" method=\"POST\">
 \t<br/>
-\t<h2>Fiche frais<h2/>
+\t<h2>Fiche frais</h2>
 \t<table>
 \t<thead>
 \t\t<th>Mois</th>
@@ -438,7 +438,7 @@ tr, td{
 \t\t</tr>
 \t\t</table>
 \t\t<br/>
-\t\t<h2>Ligne frais hors forfait<h2/>
+\t\t<h2>Ligne frais hors forfait</h2>
 \t\t<table>
 \t\t<thead>
 \t\t\t<th>Date</th>
@@ -476,7 +476,7 @@ tr, td{
 \t\t</form>
 \t\t</table>
 \t\t<br/>
-\t\t<h2>Ligne frais forfait<h2/>
+\t\t<h2>Ligne frais forfait</h2>
 \t\t<table>
 \t\t<thead>
 \t\t\t<th>Type</th>

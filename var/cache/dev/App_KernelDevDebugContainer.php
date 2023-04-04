@@ -16,6 +16,6 @@ if (!\class_exists(App_KernelDevDebugContainer::class, false)) {
 
 return new \Container8IwMt64\App_KernelDevDebugContainer([
     'container.build_hash' => '8IwMt64',
-    'container.build_id' => '0ab10e50',
-    'container.build_time' => 1680518921,
+    'container.build_id' => '4ae4f3d3',
+    'container.build_time' => 1680600524,
 ], __DIR__.\DIRECTORY_SEPARATOR.'Container8IwMt64');

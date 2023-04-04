@@ -154,7 +154,7 @@ tr, td{
         // line 94
         echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["fiche"]) || array_key_exists("fiche", $context) ? $context["fiche"] : (function () { throw new RuntimeError('Variable "fiche" does not exist.', 94, $this->source); })()), "Etat", [], "any", false, false, false, 94), "libelle", [], "any", false, false, false, 94), "html", null, true);
         echo "<h4>
-<h2>Fiche frais<h2/>
+<h2>Fiche frais</h2>
     <table>
     <thead>
    \t <th>Mois</th>
@@ -182,7 +182,7 @@ tr, td{
    \t </tr>
    \t </table>
    \t <br/>
-   \t <h2>Ligne frais hors forfait<h2/>
+   \t <h2>Ligne frais hors forfait</h2>
    \t <table>
    \t <thead>
    \t\t <th>Date</th>
@@ -224,7 +224,7 @@ tr, td{
         echo "   \t </form>
    \t </table>
    \t <br/>
-   \t <h2>Ligne frais forfait<h2/>
+   \t <h2>Ligne frais forfait</h2>
    \t <table>
    \t <thead>
    \t\t <th>Type</th>
@@ -410,7 +410,7 @@ tr, td{
 <form action=\"{{ path('app_validée', { \"Visiteur\": fiche.Visiteur.id , \"FicheFrais\": fiche.id }) }}\" method=\"POST\">
 <h4>{{ fiche.Visiteur.nom }} {{ fiche.Visiteur.prenom }} </h4>
 <h4>Etat de la fiche: {{ fiche.Etat.libelle }}<h4>
-<h2>Fiche frais<h2/>
+<h2>Fiche frais</h2>
     <table>
     <thead>
    \t <th>Mois</th>
@@ -426,7 +426,7 @@ tr, td{
    \t </tr>
    \t </table>
    \t <br/>
-   \t <h2>Ligne frais hors forfait<h2/>
+   \t <h2>Ligne frais hors forfait</h2>
    \t <table>
    \t <thead>
    \t\t <th>Date</th>
@@ -445,7 +445,7 @@ tr, td{
    \t </form>
    \t </table>
    \t <br/>
-   \t <h2>Ligne frais forfait<h2/>
+   \t <h2>Ligne frais forfait</h2>
    \t <table>
    \t <thead>
    \t\t <th>Type</th>
