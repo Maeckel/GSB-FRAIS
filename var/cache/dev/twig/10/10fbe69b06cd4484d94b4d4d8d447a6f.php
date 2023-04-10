@@ -258,7 +258,7 @@ tr, td{
    \t ";
             // line 157
             $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, (isset($context["fiche"]) || array_key_exists("fiche", $context) ? $context["fiche"] : (function () { throw new RuntimeError('Variable "fiche" does not exist.', 157, $this->source); })()), "ligneFraisHorsForfaits", [], "any", false, false, false, 157));
+            $context['_seq'] = twig_ensure_traversable((isset($context["fraisH"]) || array_key_exists("fraisH", $context) ? $context["fraisH"] : (function () { throw new RuntimeError('Variable "fraisH" does not exist.', 157, $this->source); })()));
             foreach ($context['_seq'] as $context["_key"] => $context["FHF"]) {
                 // line 158
                 echo "   \t\t ";
@@ -331,7 +331,7 @@ tr, td{
    \t ";
             // line 197
             $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, (isset($context["fiche"]) || array_key_exists("fiche", $context) ? $context["fiche"] : (function () { throw new RuntimeError('Variable "fiche" does not exist.', 197, $this->source); })()), "ligneFraisForfaits", [], "any", false, false, false, 197));
+            $context['_seq'] = twig_ensure_traversable((isset($context["fraisF"]) || array_key_exists("fraisF", $context) ? $context["fraisF"] : (function () { throw new RuntimeError('Variable "fraisF" does not exist.', 197, $this->source); })()));
             foreach ($context['_seq'] as $context["_key"] => $context["FF"]) {
                 // line 198
                 echo "   \t\t ";
@@ -563,7 +563,7 @@ tr, td{
    \t\t <th>Montant</th>
    \t\t <th>Libelle</th>
    \t </thead>
-   \t {% for FHF in fiche.ligneFraisHorsForfaits %}
+   \t {% for FHF in fraisH %}
    \t\t {% if FHF != null %}
    \t\t\t <tr>
    \t\t\t\t <td>{{ FHF.date|date('d-m-Y') }}</td>
@@ -603,7 +603,7 @@ tr, td{
    \t\t <th>Quantite</th>
    \t\t <th>Montant</th>
    \t </thead>
-   \t {% for FF in fiche.ligneFraisForfaits %}
+   \t {% for FF in fraisF %}
    \t\t {% if FF != null %}
    \t\t\t <tr>
    \t\t\t\t <td>{{ FF.Fraisforfait.id }}</td>

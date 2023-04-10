@@ -87,6 +87,14 @@ class ModeleGSB {
 		$st->closeCursor() ;
 	}
 
+	public static function UpdateJustificatifs( $visiteur , $Month , $Justificatifs ){
+		$bd = self::getConnexion() ;
+		$sql = "UPDATE fiche_frais SET nb_justificatifs = :Justificatifs where visiteur_id = :idVisiteur and id = :idFichefrais" ;
+		$st = $bd->prepare( $sql ) ;
+		$st->execute( array( ':idVisiteur' => $visiteur, ':idFichefrais' => $Month, ':Justificatifs' => $Justificatifs ) ) ;
+		$st->closeCursor() ;
+	}
+
 	public static function Refuser($Id , $Libelle ){
 		$bd = self::getConnexion() ;
 		$sql = "UPDATE ligne_frais_hors_forfait SET libelle = :Libelle where id = :Id and libelle not like 'REFUSE :%'" ;

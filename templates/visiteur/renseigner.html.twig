@@ -118,9 +118,8 @@ tr, td{
 			<th>Montant</th>
 			<th>Libelle</th>
 		</thead>
-		{% for FHF in fiche.ligneFraisHorsForfaits %}
+		{% for FHF in fraisH %}
 			{% if FHF != null %}
-			{% if FHF.Visiteur.id == app.session.get("id") %}
 				<tr>
 					<td>{{ FHF.date|date('d-m-Y') }}</td>
 					<td>{{ FHF.montant }}</td>
@@ -144,7 +143,6 @@ tr, td{
 					</td>
 				</tr>
 			{% endif %}
-			{% endif %}
 		{% endfor %}
 		</form>
 		</table>
@@ -157,9 +155,8 @@ tr, td{
 			<th>Quantite</th>
 			<th>Montant</th>
 		</thead>
-		{% for FF in fiche.ligneFraisForfaits %}
+		{% for FF in fraisF %}
 			{% if FF != null %}
-			{% if FF.Visiteur.id == app.session.get("id") %}
 				<tr>
 					<td>{{ FF.Fraisforfait.id }}</td>
 					<td>{{ FF.Fraisforfait.libelle  }}</td>
@@ -167,7 +164,6 @@ tr, td{
 					<td>{{ FF.Fraisforfait.montant }}</td>
 					<td> <a href="{{ path('app_frais_forfait', {'id': FF.Fraisforfait.id}) }}">Editer</a> </td>
 				</tr>
-			{% endif %}
 			{% endif %}
 		{% endfor %}
 		</table>

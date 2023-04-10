@@ -185,7 +185,7 @@ tr, td{
 \t\t\t\t\t<th>Mois</th>
 \t\t\t\t\t<th>Justificatifs</th>
 \t\t\t\t\t<th>Montant validé</th>
-\t\t\t\t\t<th>Date de modifcation</th>
+\t\t\t\t\t<th>Date de modification</th>
 \t\t\t\t</thead>
 \t\t\t\t<tr>
 \t\t\t\t\t<td>";
@@ -217,7 +217,7 @@ tr, td{
 \t\t\t\t";
                 // line 130
                 $context['_parent'] = $context;
-                $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, (isset($context["fiche"]) || array_key_exists("fiche", $context) ? $context["fiche"] : (function () { throw new RuntimeError('Variable "fiche" does not exist.', 130, $this->source); })()), "ligneFraisHorsForfaits", [], "any", false, false, false, 130));
+                $context['_seq'] = twig_ensure_traversable((isset($context["fraisH"]) || array_key_exists("fraisH", $context) ? $context["fraisH"] : (function () { throw new RuntimeError('Variable "fraisH" does not exist.', 130, $this->source); })()));
                 foreach ($context['_seq'] as $context["_key"] => $context["FHF"]) {
                     // line 131
                     echo "\t\t\t\t\t";
@@ -259,7 +259,7 @@ tr, td{
 \t\t\t\t";
                 // line 149
                 $context['_parent'] = $context;
-                $context['_seq'] = twig_ensure_traversable((isset($context["frais"]) || array_key_exists("frais", $context) ? $context["frais"] : (function () { throw new RuntimeError('Variable "frais" does not exist.', 149, $this->source); })()));
+                $context['_seq'] = twig_ensure_traversable((isset($context["fraisF"]) || array_key_exists("fraisF", $context) ? $context["fraisF"] : (function () { throw new RuntimeError('Variable "fraisF" does not exist.', 149, $this->source); })()));
                 foreach ($context['_seq'] as $context["_key"] => $context["unfrais"]) {
                     // line 150
                     echo "\t\t\t\t";
@@ -441,7 +441,7 @@ tr, td{
 \t\t\t\t\t<th>Mois</th>
 \t\t\t\t\t<th>Justificatifs</th>
 \t\t\t\t\t<th>Montant validé</th>
-\t\t\t\t\t<th>Date de modifcation</th>
+\t\t\t\t\t<th>Date de modification</th>
 \t\t\t\t</thead>
 \t\t\t\t<tr>
 \t\t\t\t\t<td>{{ fiche.id }}</td>
@@ -458,7 +458,7 @@ tr, td{
 \t\t\t\t\t<th>Montant</th>
 \t\t\t\t\t<th>Libelle</th>
 \t\t\t\t</thead>
-\t\t\t\t{% for FHF in fiche.ligneFraisHorsForfaits %}
+\t\t\t\t{% for FHF in fraisH %}
 \t\t\t\t\t{% if FHF != null %}
 \t\t\t\t\t<tr>
 \t\t\t\t\t\t<td>{{ FHF.date|date('d-m-Y') }}</td>
@@ -477,7 +477,7 @@ tr, td{
 \t\t\t\t\t<th>Quantite</th>
 \t\t\t\t\t<th>Montant</th>
 \t\t\t\t</thead>
-\t\t\t\t{% for unfrais in frais %}
+\t\t\t\t{% for unfrais in fraisF %}
 \t\t\t\t{% if unfrais != null %}
 \t\t\t\t<tr>
 \t\t\t\t\t<td>{{ unfrais.Fraisforfait.id }}</td>

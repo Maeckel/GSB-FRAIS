@@ -65,6 +65,8 @@ class ComptableController extends AbstractController
        $i = 0;
        $erreur = null;
        $fiche = null;
+       $fraisH = null;
+       $fraisF = null;
        $Month = date('m/Y');
        $annees = array($date);
 
@@ -92,7 +94,7 @@ class ComptableController extends AbstractController
 
                 $erreur = "Modification prise en compte !";
 
-                return $this->render('comptable/valider.html.twig', ['visiteurs' => $visiteurs, 'annees' => $annees, 'fiche' => $fiche, 'erreur' => $erreur]);
+                return $this->render('comptable/valider.html.twig', ['visiteurs' => $visiteurs, 'annees' => $annees, 'fiche' => $fiche, 'erreur' => $erreur , 'fraisH' => $fraisH, 'fraisF' => $fraisF]);
             }
 
            $Visiteur = $_POST[ "Visiteur" ] ;
@@ -107,6 +109,13 @@ class ComptableController extends AbstractController
                        -> getRepository('App\Entity\FicheFrais') ;
            $fiche = $Co -> findOneBy(array('id' => $choix , 'visiteur' => $Visiteur));
 
+           $Co2 = $this -> getDoctrine()
+					    -> getRepository('App\Entity\LigneFraisForfait') ;
+           $fraisF = $Co2 -> findBy(array('Visiteur' => $Visiteur, 'Fichefrais' => $choix ));
+
+           $Co3 = $this -> getDoctrine()
+					     -> getRepository('App\Entity\LigneFraisHorsForfait') ;
+           $fraisH = $Co3 -> findBy(array('Visiteur' => $Visiteur, 'Fichefrais' => $choix ));
 
            if($fiche == null or $fiche->getId() == $Month){
 
@@ -116,11 +125,11 @@ class ComptableController extends AbstractController
            }
 
 
-           return $this->render('comptable/valider.html.twig', ['visiteurs' => $visiteurs, 'annees' => $annees, 'fiche' => $fiche, 'erreur' => $erreur]);
+           return $this->render('comptable/valider.html.twig', ['visiteurs' => $visiteurs, 'annees' => $annees, 'fiche' => $fiche, 'erreur' => $erreur, 'fraisH' => $fraisH, 'fraisF' => $fraisF]);
 
        }
 
-       return $this->render('comptable/valider.html.twig', ['visiteurs' => $visiteurs, 'annees' => $annees, 'fiche' => $fiche, 'erreur' => $erreur]);
+       return $this->render('comptable/valider.html.twig', ['visiteurs' => $visiteurs, 'annees' => $annees, 'fiche' => $fiche, 'erreur' => $erreur, 'fraisH' => $fraisH, 'fraisF' => $fraisF]);
     }
 
     public function Actualiser($Visiteur , $FicheFrais , $FraisForfait)
@@ -206,6 +215,14 @@ class ComptableController extends AbstractController
 					-> getRepository('App\Entity\FicheFrais') ;
         $fiche = $Co -> findOneBy(array('visiteur' => $Visiteur, 'id' => $FicheFrais));
 
+        $Co2 = $this -> getDoctrine()
+					    -> getRepository('App\Entity\LigneFraisForfait') ;
+        $fraisF = $Co2 -> findBy(array('Visiteur' => $Visiteur, 'Fichefrais' => $FicheFrais ));
+
+        $Co3 = $this -> getDoctrine()
+					     -> getRepository('App\Entity\LigneFraisHorsForfait') ;
+        $fraisH = $Co3 -> findBy(array('Visiteur' => $Visiteur, 'Fichefrais' => $FicheFrais ));
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             $Etat = "VA";
@@ -215,7 +232,7 @@ class ComptableController extends AbstractController
 
         }
 
-        return $this->render('comptable/validée.html.twig', ['fiche' => $fiche, 'erreur' => $erreur ]);
+        return $this->render('comptable/validée.html.twig', ['fiche' => $fiche, 'erreur' => $erreur, 'fraisH' => $fraisH, 'fraisF' => $fraisF ]);
     }
 
     public function Suivre()
@@ -255,7 +272,7 @@ class ComptableController extends AbstractController
 
              ModeleGSB::ModifierEtat( $Visiteur , $FicheFrais , $DateModif , $Etat );
 
-             return $this->render('comptable/suivre.html.twig', ['visiteurs' => $visiteurs, 'annees' => $annees, 'fiche' => $fiche, 'erreur' => $erreur]);
+             return $this->render('comptable/suivre.html.twig', ['visiteurs' => $visiteurs, 'annees' => $annees, 'fiche' => $fiche, 'erreur' => $erreur, 'fraisH' => $fraisH, 'fraisF' => $fraisF]);
           }
 
            $Visiteur = $_POST[ "Visiteur" ] ;
@@ -268,8 +285,18 @@ class ComptableController extends AbstractController
                        -> getRepository('App\Entity\FicheFrais') ;
            $fiche = $Co -> findOneBy(array('id' => $choix , 'visiteur' => $Visiteur));
 
-           $this->get('session')->set('visiteur' , $fiche->getVisiteur()->getId()) ;
-		   $this->get('session')->set('fiche' , $fiche->getId()) ;
+           $Co2 = $this -> getDoctrine()
+					    -> getRepository('App\Entity\LigneFraisForfait') ;
+           $fraisF = $Co2 -> findBy(array('Visiteur' => $Visiteur, 'Fichefrais' => $choix ));
+
+           $Co3 = $this -> getDoctrine()
+					     -> getRepository('App\Entity\LigneFraisHorsForfait') ;
+           $fraisH = $Co3 -> findBy(array('Visiteur' => $Visiteur, 'Fichefrais' => $choix ));
+
+           if($fiche != null){
+                $this->get('session')->set('visiteur' , $fiche->getVisiteur()->getId()) ;
+		        $this->get('session')->set('fiche' , $fiche->getId()) ;
+		   }
 
            if($fiche == null or $fiche->getId() == $Month){
 
@@ -279,7 +306,7 @@ class ComptableController extends AbstractController
            }
        }
 
-        return $this->render('comptable/suivre.html.twig', ['visiteurs' => $visiteurs, 'annees' => $annees, 'fiche' => $fiche, 'erreur' => $erreur]);
+        return $this->render('comptable/suivre.html.twig', ['visiteurs' => $visiteurs, 'annees' => $annees, 'fiche' => $fiche, 'erreur' => $erreur, 'fraisH' => $fraisH, 'fraisF' => $fraisF]);
     }
 
     public function Espace()

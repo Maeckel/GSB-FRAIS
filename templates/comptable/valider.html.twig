@@ -154,7 +154,7 @@ tr, td{
    		 <th>Montant</th>
    		 <th>Libelle</th>
    	 </thead>
-   	 {% for FHF in fiche.ligneFraisHorsForfaits %}
+   	 {% for FHF in fraisH %}
    		 {% if FHF != null %}
    			 <tr>
    				 <td>{{ FHF.date|date('d-m-Y') }}</td>
@@ -194,7 +194,7 @@ tr, td{
    		 <th>Quantite</th>
    		 <th>Montant</th>
    	 </thead>
-   	 {% for FF in fiche.ligneFraisForfaits %}
+   	 {% for FF in fraisF %}
    		 {% if FF != null %}
    			 <tr>
    				 <td>{{ FF.Fraisforfait.id }}</td>

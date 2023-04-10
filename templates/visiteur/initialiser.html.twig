@@ -74,6 +74,11 @@ tr, td{
 </head>
 <form action="{{ path('app_initialiser') }}" method="POST">
 <br/>
+<label>Veuillez choisir le nombre de justificatif  :</label>
+<br/>
+<input type="number" name="Justificatif" step="1" />
+<br/>
+<br/>
 <label>Veuillez choisir au moins un Frais au Forfait :</label>
 <br/>
 <br/>
@@ -115,15 +120,13 @@ tr, td{
 			<th>Quantite</th>
 			<th>Montant</th>
 		</thead>
-		{% for FF in fiche.ligneFraisForfaits %}
-		    {% if FF.Visiteur.id == app.session.get("id") %}
+		{% for FF in fraisF %}
 				<tr>
 					<td>{{ FF.Fraisforfait.id }}</td>
 					<td>{{ FF.Fraisforfait.libelle  }}</td>
 					<td>{{ FF.quantite }}</td>
 					<td>{{ FF.Fraisforfait.montant }}</td>
 				</tr>
-			{% endif %}
 		{% endfor %}
 		</table>
 {% endif %}

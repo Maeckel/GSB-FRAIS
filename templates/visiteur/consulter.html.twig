@@ -110,7 +110,7 @@ tr, td{
 					<th>Mois</th>
 					<th>Justificatifs</th>
 					<th>Montant validé</th>
-					<th>Date de modifcation</th>
+					<th>Date de modification</th>
 				</thead>
 				<tr>
 					<td>{{ fiche.id }}</td>
@@ -127,7 +127,7 @@ tr, td{
 					<th>Montant</th>
 					<th>Libelle</th>
 				</thead>
-				{% for FHF in fiche.ligneFraisHorsForfaits %}
+				{% for FHF in fraisH %}
 					{% if FHF != null %}
 					<tr>
 						<td>{{ FHF.date|date('d-m-Y') }}</td>
@@ -146,7 +146,7 @@ tr, td{
 					<th>Quantite</th>
 					<th>Montant</th>
 				</thead>
-				{% for unfrais in frais %}
+				{% for unfrais in fraisF %}
 				{% if unfrais != null %}
 				<tr>
 					<td>{{ unfrais.Fraisforfait.id }}</td>
